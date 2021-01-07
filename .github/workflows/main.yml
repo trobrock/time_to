@@ -4,13 +4,19 @@ on: [push,pull_request]
 
 jobs:
   build:
+    strategy:
+      matrix:
+        ruby: [2.4.10, 2.5.8, 2.6.6, 2.7.2, 3.0.0]
+        gemfile: [activesupport, no_activesupport]
     runs-on: ubuntu-latest
+    env:
+      BUNDLE_GEMFILE: gemfiles/${{ matrix.gemfile }}.gemfile
     steps:
     - uses: actions/checkout@v2
     - name: Set up Ruby
       uses: ruby/setup-ruby@v1
       with:
-        ruby-version: 3.0.0
+        ruby-version: ${{ matrix.ruby }}
     - name: Run the default task
       run: |
         gem install bundler -v 2.2.4
