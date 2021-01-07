@@ -1,5 +1,10 @@
 # frozen_string_literal: true
 
+begin
+  require 'active_support/core_ext/time'
+rescue LoadError
+end
+
 require 'time_to'
 
 RSpec.configure do |config|

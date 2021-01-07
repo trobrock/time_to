@@ -1,11 +1,9 @@
 # frozen_string_literal: true
 
-begin
-  require 'active_support/time_with_zone'
-rescue LoadError
-end
-
 RSpec.describe TimeTo do
+  let(:two_days) { 86_400 * 2 }
+  let(:start_time) { subject - two_days }
+
   it 'has a version number' do
     expect(TimeTo::VERSION).not_to be nil
   end
@@ -14,13 +12,20 @@ RSpec.describe TimeTo do
     subject { Time.new }
 
     it { is_expected.to respond_to :to }
+
+    it 'returns a list of times' do
+      expect(start_time.to(subject).count).to eq 3
+    end
   end
 
   context 'TimeWithZone', if: defined?(ActiveSupport::TimeWithZone) do
-    subject do
-      ActiveSupport::TimeWithZone.new(Time.new, ActiveSupport::TimeZone['America/New_York'])
-    end
+    before { Time.zone = 'America/New_York' }
+    subject { Time.zone.now }
 
     it { is_expected.to respond_to :to }
+
+    it 'returns a list of times' do
+      expect(start_time.to(subject).count).to eq 3
+    end
   end
 end
