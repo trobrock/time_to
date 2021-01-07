@@ -2,6 +2,8 @@
 
 require_relative 'time_to/version'
 
-# Your code goes here...
+require_relative 'time_to/core_ext/time'
+require_relative 'time_to/core_ext/time_with_zone' if defined?(ActiveSupport::TimeWithZone)
+
 class TimeTo::Error < StandardError
 end

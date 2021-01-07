@@ -5,7 +5,15 @@ RSpec.describe TimeTo do
     expect(TimeTo::VERSION).not_to be nil
   end
 
-  it 'does something useful' do
-    expect(false).to eq(true)
+  context 'Time' do
+    subject { Time.new }
+
+    it { is_expected.to respond_to :to }
+  end
+
+  context 'TimeWithZone', if: defined?(ActiveSupport::TimeWithZone) do
+    subject { Time.zone.new }
+
+    it { is_expected.to respond_to :to }
   end
 end
