@@ -1,0 +1,6 @@
+inherit_from:
+  - https://raw.githubusercontent.com/trobrock/style-guides/285db71/ruby-style.yml
+
+AllCops:
+  Exclude:
+    - vendor/**/*
