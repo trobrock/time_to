@@ -5,7 +5,7 @@ module TimeTo::Extension
 
   def to(time, by: DAY)
     (to_i..time.to_i).step(by).map do |i|
-      self.class.respond_to?(:zone) ? Time.at(i).in_time_zone(self.class.zone) : Time.at(i)
+      Time.respond_to?(:zone) ? Time.at(i).in_time_zone(Time.zone) : Time.at(i)
     end
   end
 end
